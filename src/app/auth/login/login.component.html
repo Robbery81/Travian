@@ -1,0 +1,22 @@
+<form [formGroup]="logInForm">
+  <label for="usernameOrEmail">
+    <input formControlName="userLogin" required type="text" id="usernameOrEmail" autocomplete="username">
+    <div class="label">
+      <span>Имя или email</span>
+    </div>
+    <div class="validation"></div>
+  </label>
+
+  <label>
+    <input formControlName="userPass" required type="password" name="password" id="password" autocomplete="current-password">
+    <div class="label">
+      <span>Пароль</span>
+    </div>
+  </label>
+
+  <button type="submit">
+    <span>Войти в игру</span>
+  </button>
+</form>
+
+<pre>{{logInForm.value | json}}</pre>
