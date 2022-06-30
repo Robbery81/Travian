@@ -1,22 +1,32 @@
-<form [formGroup]="logInForm">
-  <label for="usernameOrEmail">
-    <input formControlName="userLogin" required type="text" id="usernameOrEmail" autocomplete="username">
-    <div class="label">
-      <span>Имя или email</span>
-    </div>
-    <div class="validation"></div>
-  </label>
+<form [formGroup]="form" (ngSubmit)="submit()">
 
-  <label>
-    <input formControlName="userPass" required type="password" name="password" id="password" autocomplete="current-password">
-    <div class="label">
-      <span>Пароль</span>
-    </div>
-  </label>
+  <h2>Login</h2>
 
-  <button type="submit">
-    <span>Войти в игру</span>
+  <div class="form-control">
+    <label for="login">Email</label>
+    <input id="login" formControlName="login">
+    <div *ngIf="form.get('login').touched && form.get('login')?.invalid" class="validation">
+      <small *ngIf="form.get('login').errors.required">Enter Email</small>
+      <small *ngIf="form.get('login').errors.email">Enter valid Email</small>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label for="password">Password</label>
+    <input id="password" formControlName="password" type="password">
+    <div *ngIf="form.get('password').touched && form.get('password')?.invalid" class="validation">
+      <small *ngIf="form.get('password').errors.required">Enter Password</small>
+      <small *ngIf="form.get('password').errors.minlength">
+        Password must be at least {{form.get('password').errors.requiredLength}} chars.
+        Now {{form.get('password').errors.minlength.actualLength}}
+      </small>
+    </div>
+  </div>
+
+
+  <button type="submit" [disabled]="submitted">
+    <span>Log in</span>
   </button>
 </form>
 
-<pre>{{logInForm.value | json}}</pre>
+<pre>{{form.value | json}}</pre>
