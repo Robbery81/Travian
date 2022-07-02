@@ -6,9 +6,7 @@ import { Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) {}
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((err: any) => {
@@ -20,6 +18,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         console.error(err);
         return throwError(error);
       })
-    )
+    );
   }
 }

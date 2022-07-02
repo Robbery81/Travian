@@ -9,16 +9,12 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
-  private static readonly LOGIN = `${environment.redirectUrl}/auth/login/`;
-  private static readonly UPDATE_TOKEN = `${environment.redirectUrl}/auth/login/access-token`;
+  private static readonly LOGIN = `${environment.baseUrl}/auth/login/`;
+  private static readonly UPDATE_TOKEN = `${environment.baseUrl}/auth/login/access-token`;
 
   private refreshTokenTimeout: any;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public isLoggedIn(): boolean {
     return !!this.token;
@@ -27,8 +23,8 @@ export class AuthService {
   public login(user: any) {
     return this.http.post(AuthService.LOGIN, user).pipe(
       tap((res) => {
-        this.setToken(res)
-        this.startRefreshTokenTimer()
+        this.setToken(res);
+        this.startRefreshTokenTimer();
       })
     );
   }
@@ -37,15 +33,15 @@ export class AuthService {
     const token = localStorage.getItem('refresh-token');
 
     if (!token) {
-
       return of(this.router.navigate(['/login']));
     }
 
-    return this.http.post(AuthService.UPDATE_TOKEN, {"refreshToken": token})
-      .pipe(tap((res) => {
+    return this.http.post(AuthService.UPDATE_TOKEN, { refreshToken: token }).pipe(
+      tap((res) => {
         this.setToken(res);
         this.startRefreshTokenTimer();
-      }));
+      })
+    );
   }
 
   private setToken(response: any) {

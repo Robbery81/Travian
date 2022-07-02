@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  redirectUrl: 'http://localhost:3000/api',
+    production: false,
+    baseUrl: 'http://localhost:3000/api'
 };

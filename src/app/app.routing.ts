@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from "src/app/shared/guards/auth-guard-service.guard";
+import { AuthGuard } from 'src/app/shared/guards/auth-guard-service.guard';
 
 const routes: Routes = [
   {
@@ -11,20 +11,20 @@ const routes: Routes = [
   {
     path: 'main',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./containers/main/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./containers/main/main.module').then((m) => m.MainModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule),
+    loadChildren: () => import('./containers/login/login.module').then((m) => m.LoginModule)
   },
   {
     path: '**',
-    loadChildren: () => import('src/app/not-found/not-found.module').then(m => m.NotFoundModule),
+    loadChildren: () => import('src/app/containers/not-found/not-found.module').then((m) => m.NotFoundModule)
   }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRouting {}
