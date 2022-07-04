@@ -2,17 +2,22 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+import { appReducer } from 'src/app/store/reducers/app.reducer';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { environment } from 'src/environments/environment';
-import { AuthService } from 'src/app/shared/service/auth.service';
 import { AppRouting } from './app.routing';
-import { AppComponent } from './app.component';
+
 import { JwtInterceptor } from 'src/app/shared/interseptors/jwt.interceptor';
 import { appInitializer } from 'src/app/shared/interseptors/app.initializer';
 import { ErrorInterceptor } from 'src/app/shared/interseptors/error.interceptor';
-import { appReducer } from 'src/app/store/reducers/app.reducer';
+
+import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/shared/service/auth.service';
+import { AppComponent } from './app.component';
+
+import { LoginEffect } from 'src/app/store/effects/login.effect';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +26,8 @@ import { appReducer } from 'src/app/store/reducers/app.reducer';
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(appReducer, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([LoginEffect])
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },

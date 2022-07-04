@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { AuthResponseInterface } from 'src/app/shared/interfaces/auth-response.interface';
+import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
+import { CurrentUserInterface } from 'src/app/shared/interfaces/current-user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +23,21 @@ export class AuthService {
     return !!this.token;
   }
 
-  public login(user: any) {
-    return this.http.post(AuthService.LOGIN, user).pipe(
+  /*public login(user: LoginRequestInterface): Observable<AuthResponseInterface> {
+    return this.http.post<AuthResponseInterface>(AuthService.LOGIN, user).pipe(
       tap((res) => {
         this.setToken(res);
         this.startRefreshTokenTimer();
+      })
+    );
+  }*/
+
+  public login(user: LoginRequestInterface): Observable<CurrentUserInterface> {
+    return this.http.post<AuthResponseInterface>(AuthService.LOGIN, user).pipe(
+      map((response) => {
+        this.setToken(response);
+        this.startRefreshTokenTimer();
+        return response.user;
       })
     );
   }

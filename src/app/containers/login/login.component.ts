@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { loginAction } from 'src/app/store/actions/login.action';
 import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
@@ -43,7 +42,7 @@ export class LoginComponent implements OnInit {
       password: this.form.value.password
     };
 
-    this.authService
+    /*this.authService
       .login(user)
       .pipe(first())
       .subscribe({
@@ -53,8 +52,8 @@ export class LoginComponent implements OnInit {
         error: () => {
           //this.submitted = false;
         }
-      });
+      });*/
 
-    this.store.dispatch(loginAction(user));
+    this.store.dispatch(loginAction({ request: user }));
   }
 }
