@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
 import { CurrentUserInterface } from 'src/app/shared/interfaces/current-user.interface';
+import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors.interface';
 
 export enum ActionTypesEnum {
   LOGIN = '[Login] Login',
@@ -15,4 +16,7 @@ export const loginSuccessAction = createAction(
   props<{ currentUser: CurrentUserInterface }>()
 );
 
-export const loginFailureAction = createAction(ActionTypesEnum.LOGIN_FAILURE);
+export const loginFailureAction = createAction(
+  ActionTypesEnum.LOGIN_FAILURE,
+  props<{ errors: BackendErrorsInterface }>()
+);

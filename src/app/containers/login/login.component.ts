@@ -6,8 +6,9 @@ import { select, Store } from '@ngrx/store';
 import { loginAction } from 'src/app/store/actions/login.action';
 import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
 import { Observable } from 'rxjs';
-import { isSubmittingSelector } from 'src/app/store/selectors/login.selector';
+import { isSubmittingSelector, validationErrorsSelector } from 'src/app/store/selectors/login.selector';
 import { AppStateInterface } from 'src/app/store/states/app.state';
+import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors.interface';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl(null, [Validators.required, Validators.minLength(1)])
   });
 
-  public isSubmitting$: Observable<boolean> | undefined;
+  public isSubmitting$?: Observable<boolean>;
+  public backendErrors$?: Observable<BackendErrorsInterface | null>;
 
   constructor(private authService: AuthService, private router: Router, private store: Store<AppStateInterface>) {}
 
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
 
   initializeValues(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
+    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
   }
 
   public submit() {

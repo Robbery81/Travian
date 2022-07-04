@@ -2,6 +2,8 @@
 
   <h2>Login</h2>
 
+  <app-backend-error-messages *ngIf="backendErrors$ | async as backendErrors" [backendErrors]="backendErrors"></app-backend-error-messages>
+
   <div class="form-control">
     <label for="login">Email</label>
     <input id="login" formControlName="login">

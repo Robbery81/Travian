@@ -5,6 +5,7 @@ import { catchError, switchMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { CurrentUserInterface } from 'src/app/shared/interfaces/current-user.interface';
+import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors.interface';
 
 @Injectable()
 export class LoginEffect {
@@ -12,14 +13,12 @@ export class LoginEffect {
     this.actions$.pipe(
       ofType(ActionTypesEnum.LOGIN),
       switchMap(({ request }) => {
-        console.log(request);
         return this.authService.login(request).pipe(
           map((currentUser: CurrentUserInterface) => {
-            console.log('loginSuccessAction');
             return loginSuccessAction({ currentUser });
           }),
-          catchError(() => {
-            return of(loginFailureAction());
+          catchError((errorResponse: BackendErrorsInterface) => {
+            return of(loginFailureAction({ errors: errorResponse }));
           })
         );
       })

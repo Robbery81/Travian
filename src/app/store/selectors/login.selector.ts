@@ -8,3 +8,8 @@ export const isSubmittingSelector = createSelector(
   loginFeatureSelector,
   (state: LoginStateInterface) => state.isSubmitting
 );
+
+export const validationErrorsSelector = createSelector(
+  loginFeatureSelector,
+  (state: LoginStateInterface) => state.validationErrors
+);
