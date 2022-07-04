@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AuthResponseInterface } from 'src/app/shared/interfaces/auth-response.interface';
 import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
-import { CurrentUserInterface } from 'src/app/shared/interfaces/current-user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +31,12 @@ export class AuthService {
     );
   }*/
 
-  public login(user: LoginRequestInterface): Observable<CurrentUserInterface> {
+  public login(user: LoginRequestInterface): Observable<AuthResponseInterface> {
     return this.http.post<AuthResponseInterface>(AuthService.LOGIN, user).pipe(
       map((response) => {
         this.setToken(response);
         this.startRefreshTokenTimer();
-        return response.user;
+        return response;
       })
     );
   }

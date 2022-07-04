@@ -45,18 +45,6 @@ export class LoginComponent implements OnInit {
       password: this.form.value.password
     };
 
-    /*this.authService
-      .login(user)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-        },
-        error: () => {
-          //this.submitted = false;
-        }
-      });*/
-
     this.store.dispatch(loginAction({ request: user }));
   }
 }
