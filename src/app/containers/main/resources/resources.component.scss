@@ -1,0 +1,21 @@
+.resources {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 700px;
+  z-index: 2;
+
+  &-item {
+    position: relative;
+
+    transform: translate(-120px, -85px);
+
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-image: url('../../../../assets/bg/resource-fields/resourceField3.png');
+
+    width: 473px;
+    height: 304px;
+  }
+}

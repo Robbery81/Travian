@@ -1,8 +1,10 @@
-<div>
-  <nav>
-    <a [routerLink]="['resources']" routerLinkActive="active">Resourses</a>
-    <a routerLink="village" routerLinkActive="active">Village</a>
-  </nav>
-</div>
+<div [classList]="resource ? 'background class1' : 'background class2'">
+  <div class="toolbar">
+    <nav id="navigation">
+      <a class="resources" [routerLink]="['resources']" routerLinkActive="active" (click)="changeBg('resources')"></a>
+      <a class="village" [routerLink]="['village']" routerLinkActive="active" (click)="changeBg('village')"></a>
+    </nav>
+  </div>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>
