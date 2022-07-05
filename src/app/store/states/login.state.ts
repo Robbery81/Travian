@@ -4,13 +4,13 @@ import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors
 export interface LoginStateInterface {
   isSubmitting: boolean;
   currentUser: CurrentUserInterface | null;
-  isLoggedIn: boolean | null;
+  isLoggedIn: boolean;
   validationErrors: BackendErrorsInterface | null;
 }
 
 export const initialLoginState: LoginStateInterface = {
   isSubmitting: false,
   currentUser: null,
-  isLoggedIn: null,
+  isLoggedIn: false,
   validationErrors: null
 };

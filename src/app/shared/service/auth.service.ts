@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { map, tap } from 'rxjs/operators';
+
 import { Router } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+import { tokenRefreshAction } from 'src/app/store/actions/token-refresh.action';
+
+import { AppStateInterface } from 'src/app/store/states/app.state';
 import { AuthResponseInterface } from 'src/app/shared/interfaces/auth-response.interface';
 import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
+
+import { PersistenceService } from 'src/app/shared/service/persistence.service';
+
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,76 +25,52 @@ export class AuthService {
 
   private refreshTokenTimeout: any;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private store: Store<AppStateInterface>,
+    private http: HttpClient,
+    private router: Router,
+    private persistenceService: PersistenceService
+  ) {}
 
   public isLoggedIn(): boolean {
     return !!this.token;
   }
 
-  /*public login(user: LoginRequestInterface): Observable<AuthResponseInterface> {
-    return this.http.post<AuthResponseInterface>(AuthService.LOGIN, user).pipe(
-      tap((res) => {
-        this.setToken(res);
-        this.startRefreshTokenTimer();
-      })
-    );
-  }*/
-
   public login(user: LoginRequestInterface): Observable<AuthResponseInterface> {
-    return this.http.post<AuthResponseInterface>(AuthService.LOGIN, user).pipe(
-      map((response) => {
-        this.setToken(response);
-        this.startRefreshTokenTimer();
-        return response;
-      })
-    );
+    return this.http.post<AuthResponseInterface>(AuthService.LOGIN, user);
   }
 
   public refreshToken() {
-    const token = localStorage.getItem('refresh-token');
+    const token = this.persistenceService.get('refresh-token');
 
     if (!token) {
-      return of(this.router.navigate(['/login']));
+      this.router.navigate(['/login']);
+      return of(new Error());
     }
 
-    return this.http.post(AuthService.UPDATE_TOKEN, { refreshToken: token }).pipe(
-      tap((res) => {
-        this.setToken(res);
-        this.startRefreshTokenTimer();
-      })
-    );
+    return this.http.post(AuthService.UPDATE_TOKEN, { refreshToken: token });
   }
 
-  private setToken(response: any) {
-    if (!response) {
-      localStorage.clear();
-    }
-
-    localStorage.setItem('access-token', response.accessToken);
-    localStorage.setItem('refresh-token', response.refreshToken);
-  }
-
-  private startRefreshTokenTimer() {
-    const token = localStorage.getItem('access-token') || '';
+  public startRefreshTokenTimer(token: string) {
     const jwtToken = JSON.parse(atob(token.split('.')[1]));
 
-    // set a timeout to refresh the token a minute before it expires
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - new Date().getTime();
-    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
-  }
 
-  get token(): string {
-    return localStorage.getItem('access-token') || '';
+    this.refreshTokenTimeout = setTimeout(() => this.store.dispatch(tokenRefreshAction()), timeout);
   }
 
   public logout(): void {
-    this.setToken(null);
+    //this.setToken(null);
     this.stopRefreshTokenTimer();
     this.router.navigate(['/login']);
   }
 
   private stopRefreshTokenTimer() {
     clearTimeout(this.refreshTokenTimeout);
+  }
+
+  get token(): string {
+    return this.persistenceService.get('access-token') || '';
   }
 }

@@ -18,6 +18,7 @@ import { AuthService } from 'src/app/shared/service/auth.service';
 import { AppComponent } from './app.component';
 
 import { LoginEffect } from 'src/app/store/effects/login.effect';
+import { TokenRefreshEffect } from 'src/app/store/effects/token-refresh.effect';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,7 @@ import { LoginEffect } from 'src/app/store/effects/login.effect';
     HttpClientModule,
     StoreModule.forRoot(appReducer, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([LoginEffect])
+    EffectsModule.forRoot([LoginEffect, TokenRefreshEffect])
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
