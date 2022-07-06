@@ -9,8 +9,4 @@ export class HeaderComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
-  public changeBg(village: string) {
-    return village;
-  }
 }

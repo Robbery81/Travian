@@ -1,0 +1,98 @@
+.stock-bar {
+  position: absolute;
+  top: 73px;
+  left: 156px;
+  display: flex;
+  z-index: 4;
+
+  .warehouse, .granary {
+    height: 30px;
+    margin-right: 3px;
+    position: relative;
+    display: flex;
+    padding: 2px;
+    background-image: linear-gradient(to bottom,#cba467 5%,#f3e2ae 13%,#efbf7b 32%,#aa8050 48%,#835e35 72%,#ad8a54 93%,#d7b672 100%);
+    border: 1px solid #34220d;
+    border-radius: 4px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+      left: 2px;
+      background-color: #664e40;
+      border: solid 1px #44321d;
+      border-radius: 1px;
+    }
+
+    &-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      padding: 0 3px;
+
+      img {
+        width: 26px;
+        height: 18px;
+      }
+    }
+  }
+
+  .capacity {
+
+    &-value {
+      min-width: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      color: white;
+
+      span {
+        font-weight: 700;
+        font-size: 11px;
+      }
+    }
+  }
+
+  .resource {
+    color: black;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    background-color: #e3d4bc;
+    border: 2px solid #968879;
+    border-bottom-color: #695b52;
+    border-top-color: #f4e8d3;
+    margin-left: 1px;
+
+    &-value {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      justify-content: center;
+      min-width: 52px;
+
+      span {
+        font-weight: 700;
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+.bar {
+  height: 99%;
+  background-color: #699e32;
+
+  &-box {
+    width: 52px;
+    height: 7px;
+    border: 1px solid #52372a;
+    background-color: #52372a;
+  }
+
+}

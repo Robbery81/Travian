@@ -7,9 +7,11 @@ import { MainComponent } from 'src/app/containers/main/main.component';
 import { VillageComponent } from 'src/app/containers/main/village/village.component';
 import { ResourcesComponent } from 'src/app/containers/main/resources/resources.component';
 import { HeaderComponent } from 'src/app/containers/main/header/header.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { StockBarComponent } from './stock-bar/stock-bar.component';
 
 @NgModule({
-  declarations: [MainComponent, VillageComponent, ResourcesComponent, HeaderComponent],
+  declarations: [MainComponent, VillageComponent, ResourcesComponent, HeaderComponent, NavigationComponent, StockBarComponent],
   imports: [CommonModule, RouterModule, MainRoutingModule]
 })
 export class MainModule {}
