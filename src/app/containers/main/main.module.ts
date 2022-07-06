@@ -9,9 +9,10 @@ import { ResourcesComponent } from 'src/app/containers/main/resources/resources.
 import { HeaderComponent } from 'src/app/containers/main/header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { StockBarComponent } from './stock-bar/stock-bar.component';
+import { CurrencyComponent } from './currency/currency.component';
 
 @NgModule({
-  declarations: [MainComponent, VillageComponent, ResourcesComponent, HeaderComponent, NavigationComponent, StockBarComponent],
+  declarations: [MainComponent, VillageComponent, ResourcesComponent, HeaderComponent, NavigationComponent, StockBarComponent, CurrencyComponent],
   imports: [CommonModule, RouterModule, MainRoutingModule]
 })
 export class MainModule {}

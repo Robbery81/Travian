@@ -1,0 +1,46 @@
+.currency {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    margin-right: 5px;
+    width: 29px;
+    height: 29px;
+  }
+
+  span {
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+  }
+
+  &-wrapper {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: 20px;
+    right: 139px;
+    width: 165px;
+    height: 40px;
+    z-index: 6;
+
+    background-image: linear-gradient(to bottom,#cba467 5%,#f3e2ae 13%,#efbf7b 32%,#aa8050 48%,#835e35 72%,#ad8a54 93%,#d7b672 100%);
+    border: 1px solid #34220d;
+    border-radius: 4px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      bottom: 2px;
+      left: 2px;
+      background-color: #664e40;
+      border: solid 1px #44321d;
+      border-radius: 1px;
+    }
+  }
+}

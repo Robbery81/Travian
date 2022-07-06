@@ -18,11 +18,9 @@
     justify-content: center;
   }
 
-
-
-  .resources, .village {
-    width: 66px;
-    height: 66px;
+  a {
+    width: 60px;
+    height: 60px;
 
     position: relative;
     border: 1px solid #553420;
@@ -34,8 +32,8 @@
 
     &:after {
       content: '';
-      width: 62px;
-      height: 62px;
+      width: 56px;
+      height: 56px;
       position: absolute;
       background-image: url("/assets/bg/navigation.png");
     }
@@ -54,7 +52,7 @@
     }
 
     &:hover {
-      background-image: linear-gradient(to bottom,#cbb198,#7b6050);
+      background-image: linear-gradient(#cbb198,#dacebb);
 
       &::before {
         background-color: rgb(120, 90, 56);
@@ -83,6 +81,56 @@
 
     &:hover::after {
       background-position: 0 -186px;
+    }
+  }
+
+  .map {
+    &:after {
+      background-position: 0 -248px;
+    }
+
+    &:hover::after {
+      background-position: 0 -310px;
+    }
+  }
+
+  .statistics {
+    &:after {
+      background-position: 0 -372px;
+    }
+
+    &:hover::after {
+      background-position: 0 -434px;
+    }
+  }
+
+  .reports {
+    &:after {
+      background-position: 0 -496px;
+    }
+
+    &:hover::after {
+      background-position: 0 -558px;
+    }
+  }
+
+  .messages {
+    &:after {
+      background-position: 0 -620px;
+    }
+
+    &:hover::after {
+      background-position: 0 -682px;
+    }
+  }
+
+  .daily-quest {
+    &:after {
+      background-position: 0 -744px;
+    }
+
+    &:hover::after {
+      background-position: 0 -806px;
     }
   }
 }
