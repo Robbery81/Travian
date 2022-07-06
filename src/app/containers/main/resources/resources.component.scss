@@ -17,5 +17,34 @@
 
     width: 473px;
     height: 304px;
+
+    &:after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: url('../../../../assets/resources/villageCenter_vid3.png');
+    }
   }
 }
+
+svg {
+  path {
+    pointer-events: auto;
+    cursor: pointer;
+    transition-duration: 150ms;
+    transition-timing-function: ease-in;
+    fill: transparent;
+
+    &:hover {
+      fill: rgba(255, 255, 255, .2);
+      stroke: white;
+      transition-duration: 150ms;
+      transition-timing-function: ease-in;
+    }
+  }
+}
+
