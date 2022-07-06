@@ -1,10 +1,4 @@
-<div [classList]="resource ? 'background class1' : 'background class2'">
-  <div class="toolbar">
-    <nav id="navigation">
-      <a class="resources" [routerLink]="['resources']" routerLinkActive="active" (click)="changeBg('resources')"></a>
-      <a class="village" [routerLink]="['village']" routerLinkActive="active" (click)="changeBg('village')"></a>
-    </nav>
-  </div>
-
+<div  [ngClass]="{'resource-background': resource, 'buildings-background': !resource, 'background': true}">
+  <app-header></app-header>
   <router-outlet></router-outlet>
 </div>
