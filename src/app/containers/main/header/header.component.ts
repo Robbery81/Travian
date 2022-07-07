@@ -1,5 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VillageInterface } from 'src/app/shared/interfaces/village.interface';
+import { select, Store } from '@ngrx/store';
+import { currentVillageSelector } from 'src/app/store/selectors/village.selector';
+import { AppStateInterface } from 'src/app/store/states/app.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +11,15 @@ import { VillageInterface } from 'src/app/shared/interfaces/village.interface';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input('village') villageProps?: VillageInterface;
-  constructor() {}
+  constructor(private store: Store<AppStateInterface>) {}
 
-  ngOnInit(): void {}
+  public currentVillage$?: Observable<VillageInterface | null>;
+
+  ngOnInit(): void {
+    this.initializeValues();
+  }
+
+  initializeValues(): void {
+    this.currentVillage$ = this.store.pipe(select(currentVillageSelector));
+  }
 }

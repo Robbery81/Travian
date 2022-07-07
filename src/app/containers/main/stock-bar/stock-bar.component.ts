@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ResourcesInterface } from 'src/app/shared/interfaces/resources.interface';
 
 @Component({
   selector: 'app-stock-bar',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stock-bar.component.scss']
 })
 export class StockBarComponent implements OnInit {
+  @Input('resources') resourcesProps?: ResourcesInterface;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
+  getPercent(current: number, capacity: number): number {
+    return (current / capacity) * 100;
   }
 
+  ngOnInit(): void {}
 }

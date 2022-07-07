@@ -36,6 +36,7 @@
       padding: 0 3px;
 
       img {
+        margin-right: 1px;
         width: 26px;
         height: 18px;
       }
@@ -80,6 +81,12 @@
         font-weight: 700;
         font-size: 11px;
       }
+    }
+
+    .free-crop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

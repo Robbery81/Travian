@@ -1,33 +1,34 @@
-<div class="stock-bar">
+<div *ngIf="resourcesProps" class="stock-bar">
   <div class="warehouse">
     <div class="warehouse-item capacity">
       <img src="assets/resources/warehouse_medium.png" alt="">
-      <div class="capacity-value"><span>1 200</span></div>
+      <div class="capacity-value"><span>{{resourcesProps.warehouse.capacity}}</span></div>
     </div>
     <div class="warehouse-item resource">
       <img src="assets/resources/lumber_small.png" alt="lumber_small">
       <div class="resource-value">
-        <span>1203</span>
+        <span>{{resourcesProps.warehouse.lumber}}</span>
         <div class="bar-box">
-          <div class="bar"></div>
+          <div class="bar" [ngStyle]="{'width.%': getPercent(resourcesProps.warehouse.lumber, resourcesProps.warehouse.capacity)}"></div>
         </div>
       </div>
     </div>
     <div class="warehouse-item resource">
-      <img src="assets/resources/clay_small.png" alt="lumber_small">
+      <img src="assets/resources/clay_small.png" alt="clay_small">
       <div class="resource-value">
-        <span>1203</span>
+        <span>{{resourcesProps.warehouse.clay}}</span>
         <div class="bar-box">
-          <div class="bar"></div>
+          <div class="bar" [ngStyle]="{'width.%': getPercent(resourcesProps.warehouse.clay, resourcesProps.warehouse.capacity)}"></div>
+
         </div>
       </div>
     </div>
     <div class="warehouse-item resource">
-      <img src="assets/resources/iron_small.png" alt="lumber_small">
+      <img src="assets/resources/iron_small.png" alt="iron_small">
       <div class="resource-value">
-        <span>1203</span>
+        <span>{{resourcesProps.warehouse.iron}}</span>
         <div class="bar-box">
-          <div class="bar"></div>
+          <div class="bar" [ngStyle]="{'width.%': getPercent(resourcesProps.warehouse.iron, resourcesProps.warehouse.capacity)}"></div>
         </div>
       </div>
     </div>
@@ -36,24 +37,21 @@
   <div class="granary">
     <div class="warehouse-item capacity">
       <img src="assets/resources/granary_medium.png" alt="">
-      <div class="capacity-value"><span>1 200</span></div>
+      <div class="capacity-value"><span>{{resourcesProps.granary.capacity}}</span></div>
     </div>
     <div class="warehouse-item resource">
       <img src="assets/resources/crop_medium.png" alt="lumber_small">
       <div class="resource-value">
-        <span>1203</span>
+        <span>{{resourcesProps.granary.crop}}</span>
         <div class="bar-box">
-          <div class="bar"></div>
+          <div class="bar" [ngStyle]="{'width.%': getPercent(resourcesProps.granary.crop, resourcesProps.granary.capacity)}"></div>
         </div>
       </div>
     </div>
     <div class="warehouse-item resource">
       <img src="assets/resources/freeCrop_medium.png" alt="lumber_small">
-      <div class="resource-value">
-        <span>1203</span>
-        <div class="bar-box">
-          <div class="bar"></div>
-        </div>
+      <div class="resource-value free-crop">
+        <span>{{resourcesProps.granary.freeCrop}}</span>
       </div>
     </div>
   </div>
