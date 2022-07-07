@@ -40,8 +40,12 @@ export class AuthService {
     return this.http.post<AuthResponseInterface>(AuthService.LOGIN, user);
   }
 
-  public refreshToken() {
+  public refreshToken(skip = false) {
     const token = this.persistenceService.get('refresh-token');
+
+    if (skip) {
+      return of(new Error());
+    }
 
     if (!token) {
       this.router.navigate(['/login']);

@@ -46,6 +46,7 @@ export class TokenRefreshEffect {
         ofType(TokenRefreshActionTypes.TOKEN_REFRESH_SUCCESS),
         tap(({ response }) => {
           const responseData = response as AuthResponseInterface;
+          console.log(responseData);
           if (responseData.refreshToken) {
             this.authService.startRefreshTokenTimer(responseData.accessToken);
           }
