@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { VillageInterface } from 'src/app/shared/interfaces/village.interface';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Input('village') villageProps?: VillageInterface;
   constructor() {}
 
   ngOnInit(): void {}

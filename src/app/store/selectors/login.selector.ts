@@ -13,3 +13,8 @@ export const validationErrorsSelector = createSelector(
   loginFeatureSelector,
   (state: LoginStateInterface) => state.validationErrors
 );
+
+export const currentUserSelector = createSelector(
+  loginFeatureSelector,
+  (state: LoginStateInterface) => state.currentUser
+);

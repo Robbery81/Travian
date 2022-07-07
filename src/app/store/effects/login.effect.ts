@@ -39,6 +39,7 @@ export class LoginEffect {
         ofType(LoginActionTypes.LOGIN_SUCCESS),
         tap(() => {
           this.store.dispatch(tokenRefreshAction());
+
           this.router.navigate(['/']);
         })
       ),
