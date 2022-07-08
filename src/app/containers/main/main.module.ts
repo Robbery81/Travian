@@ -10,9 +10,20 @@ import { HeaderComponent } from 'src/app/containers/main/header/header.component
 import { NavigationComponent } from './navigation/navigation.component';
 import { StockBarComponent } from './stock-bar/stock-bar.component';
 import { CurrencyComponent } from './currency/currency.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [MainComponent, VillageComponent, ResourcesComponent, HeaderComponent, NavigationComponent, StockBarComponent, CurrencyComponent],
-  imports: [CommonModule, RouterModule, MainRoutingModule]
+  declarations: [
+    MainComponent,
+    VillageComponent,
+    ResourcesComponent,
+    HeaderComponent,
+    NavigationComponent,
+    StockBarComponent,
+    CurrencyComponent
+  ],
+  imports: [CommonModule, RouterModule, MainRoutingModule, MatTooltipModule, MatMenuModule, SharedModule]
 })
 export class MainModule {}

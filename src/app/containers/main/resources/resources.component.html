@@ -1,10 +1,47 @@
 <div class="resources">
   <div class="resources-item">
-    <a *ngFor="let level of buildingSlots; let i = index" class="building-slot building-slot-{{i+1}}">
-      <div class="building-layer">{{level}}</div>
+    <a *ngFor="let field of fields | slice:1; let i = index"
+       class="building-slot building-slot-{{i+1}}">
+      <div class="building-layer">{{field.level}}</div>
     </a>
-    <svg viewBox="0 0 473 304">
-      <path *ngFor="let d of pathD; let i = index" [attr.d]="d" class="building-{{i}}"></path>
-    </svg>
+      <svg viewBox="0 0 473 304">
+        <path
+          #menuTrigger="matMenuTrigger"
+          *ngFor="let field of fields; let i = index"
+          class="building-{{i}}"
+          [attr.d]="field.d"
+          [matMenuTriggerFor]="menu"
+          (mouseenter)="mouseEnter(menuTrigger); addTooltipData(field)"
+          (mouseleave)="mouseLeave(menuTrigger)">
+        </path>
+      </svg>
   </div>
 </div>
+
+<mat-menu #menu="matMenu" [hasBackdrop]="false" class="tooltip-menu">
+  <div *ngIf="tooltipMenu">
+    <div class="tooltip-menu__header">
+      <b>{{tooltipMenu.name | resourceNamePipe}}</b> Level {{tooltipMenu.level}}
+    </div>
+    <div>Cost for upgrading building to level {{tooltipMenu.level + 1}}:</div>
+    <div class="tooltip-menu__price">
+      <div class="tooltip-menu__price-item">
+        <img src="assets/resources/lumber_small.png" alt="lumber_small">
+        <span>{{tooltipMenu.price.lumber}}</span>
+      </div>
+      <div class="tooltip-menu__price-item">
+        <img src="assets/resources/clay_small.png" alt="clay_small">
+        <span>{{tooltipMenu.price.clay}}</span>
+      </div>
+      <div class="tooltip-menu__price-item">
+        <img src="assets/resources/iron_small.png" alt="iron_small">
+        <span>{{tooltipMenu.price.iron}}</span>
+      </div>
+      <div class="tooltip-menu__price-item">
+        <img src="assets/resources/crop_medium.png" alt="crop_medium">
+        <span>{{tooltipMenu.price.crop}}</span>
+      </div>
+    </div>
+  </div>
+</mat-menu>
+

@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { LoginEffect } from 'src/app/store/effects/login.effect';
 import { TokenRefreshEffect } from 'src/app/store/effects/token-refresh.effect';
 import { VillageEffect } from 'src/app/store/effects/village.effect';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import { VillageEffect } from 'src/app/store/effects/village.effect';
     HttpClientModule,
     StoreModule.forRoot(appReducer, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([LoginEffect, TokenRefreshEffect, VillageEffect])
+    EffectsModule.forRoot([LoginEffect, TokenRefreshEffect, VillageEffect]),
+    NoopAnimationsModule
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
