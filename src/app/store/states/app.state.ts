@@ -1,11 +1,11 @@
 import { LoginStateInterface, initialLoginState } from 'src/app/store/states/login.state';
 import { initialVillageState, VillageStateInterface } from 'src/app/store/states/village.state';
-import { initialPricesState } from 'src/app/store/states/price.state';
+import { initialPricesState, PriceStateInterface } from 'src/app/store/states/price.state';
 
 export interface AppStateInterface {
   login: LoginStateInterface;
   villages: VillageStateInterface;
-  prices: any;
+  prices: PriceStateInterface;
 }
 
 export const initialAppState: AppStateInterface = {

@@ -6,6 +6,6 @@ export const pricesReducer = createReducer(
   initialPricesState,
   on(pricesSuccessAction, (state, action): any => ({
     ...state,
-    prices: action.price
+    resources: action.resources
   }))
 );

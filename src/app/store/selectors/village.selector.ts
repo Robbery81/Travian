@@ -8,3 +8,8 @@ export const currentVillageSelector = createSelector(
   villagesFeatureSelector,
   (state: VillageStateInterface) => state.currentVillage
 );
+
+export const resourcesFieldsSelector = createSelector(
+  villagesFeatureSelector,
+  (state: VillageStateInterface) => state.currentVillage?.resourceFields
+);

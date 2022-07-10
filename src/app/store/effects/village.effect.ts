@@ -23,8 +23,7 @@ export class VillageEffect {
       switchMap(() => {
         return this.userService.getUserProfile().pipe(
           map((response: CurrentUserInterface) => {
-            console.log(response.prices[0]);
-            this.store.dispatch(pricesSuccessAction(response.prices[0]));
+            this.store.dispatch(pricesSuccessAction({ resources: response.prices[0].resources }));
             return villageSuccessAction({ currentVillage: response.villages[0] });
           }),
           catchError((errorResponse: BackendErrorsInterface) => {
