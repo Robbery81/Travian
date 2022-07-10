@@ -13,6 +13,7 @@ import { UserService } from 'src/app/shared/service/user.service';
 import { CurrentUserInterface } from 'src/app/shared/interfaces/current-user.interface';
 import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors.interface';
 import { VillageActionTypes, villageFailureAction, villageSuccessAction } from 'src/app/store/actions/village.action';
+import { pricesSuccessAction } from 'src/app/store/actions/prices.action';
 
 @Injectable()
 export class VillageEffect {
@@ -22,6 +23,8 @@ export class VillageEffect {
       switchMap(() => {
         return this.userService.getUserProfile().pipe(
           map((response: CurrentUserInterface) => {
+            console.log(response.prices[0]);
+            this.store.dispatch(pricesSuccessAction(response.prices[0]));
             return villageSuccessAction({ currentVillage: response.villages[0] });
           }),
           catchError((errorResponse: BackendErrorsInterface) => {

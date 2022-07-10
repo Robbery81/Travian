@@ -5,4 +5,5 @@ export interface CurrentUserInterface {
   email: string;
   isAdmin: false;
   villages: VillageInterface[];
+  prices: any;
 }
