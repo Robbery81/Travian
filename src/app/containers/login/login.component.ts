@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/shared/service/auth.service';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { loginAction } from 'src/app/store/actions/login.action';
-import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { Observable } from 'rxjs';
+
+import { select, Store } from '@ngrx/store';
 import { isSubmittingSelector, validationErrorsSelector } from 'src/app/store/selectors/login.selector';
+import { loginAction } from 'src/app/store/actions/login.action';
+
+import { AuthService } from 'src/app/shared/service/auth.service';
+
 import { AppStateInterface } from 'src/app/store/states/app.state';
+import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
 import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors.interface';
 
 @Component({

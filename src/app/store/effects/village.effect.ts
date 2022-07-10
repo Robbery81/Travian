@@ -7,13 +7,13 @@ import { of } from 'rxjs';
 
 import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { VillageActionTypes, villageFailureAction, villageSuccessAction } from 'src/app/store/actions/village.action';
+import { pricesSuccessAction } from 'src/app/store/actions/prices.action';
 
 import { UserService } from 'src/app/shared/service/user.service';
 
 import { CurrentUserInterface } from 'src/app/shared/interfaces/current-user.interface';
 import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors.interface';
-import { VillageActionTypes, villageFailureAction, villageSuccessAction } from 'src/app/store/actions/village.action';
-import { pricesSuccessAction } from 'src/app/store/actions/prices.action';
 
 @Injectable()
 export class VillageEffect {

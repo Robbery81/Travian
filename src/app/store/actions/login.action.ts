@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
 import { CurrentUserInterface } from 'src/app/shared/interfaces/current-user.interface';
+import { LoginRequestInterface } from 'src/app/shared/interfaces/login-request.interface';
 import { BackendErrorsInterface } from 'src/app/shared/interfaces/backend-errors.interface';
 
 export enum LoginActionTypes {

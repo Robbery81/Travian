@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { ResourcesInterface } from 'src/app/shared/interfaces/resources.interface';
 
 @Component({
@@ -8,6 +9,7 @@ import { ResourcesInterface } from 'src/app/shared/interfaces/resources.interfac
 })
 export class StockBarComponent implements OnInit {
   @Input('resources') resourcesProps?: ResourcesInterface;
+
   constructor() {}
 
   getPercent(current: number, capacity: number): number {

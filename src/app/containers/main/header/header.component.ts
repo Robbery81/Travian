@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { VillageInterface } from 'src/app/shared/interfaces/village.interface';
+
+import { Observable } from 'rxjs';
+
 import { select, Store } from '@ngrx/store';
 import { currentVillageSelector } from 'src/app/store/selectors/village.selector';
+
+import { VillageInterface } from 'src/app/shared/interfaces/village.interface';
 import { AppStateInterface } from 'src/app/store/states/app.state';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',

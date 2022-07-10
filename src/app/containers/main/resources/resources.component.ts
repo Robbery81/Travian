@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { ResourceFieldTypeEnum } from 'src/app/shared/enums/resource-field-type.enum';
-import { TooltipMenuInterface } from 'src/app/shared/interfaces/tooltip-menu.interface';
+
+import { Subscription } from 'rxjs';
+
 import { select, Store } from '@ngrx/store';
+
 import { AppStateInterface } from 'src/app/store/states/app.state';
 import { priceResourcesSelector } from 'src/app/store/selectors/prices.selector';
-import { Subscription } from 'rxjs';
 import { resourcesFieldsSelector } from 'src/app/store/selectors/village.selector';
+
+import { ResourceFieldTypeEnum } from 'src/app/shared/enums/resource-field-type.enum';
+
+import { PriceInterface } from 'src/app/shared/interfaces/price.interface';
+import { TooltipMenuInterface } from 'src/app/shared/interfaces/tooltip-menu.interface';
 import { ResourceFieldInterface } from 'src/app/shared/interfaces/resource-field.interface';
 import { UpgradeFieldPriceInterface } from 'src/app/shared/interfaces/upgrade-field-price.interface';
-import { PriceInterface } from 'src/app/shared/interfaces/price.interface';
 
 @Component({
   selector: 'app-resources',
@@ -17,32 +22,36 @@ import { PriceInterface } from 'src/app/shared/interfaces/price.interface';
   styleUrls: ['./resources.component.scss']
 })
 export class ResourcesComponent implements OnInit {
-  tooltipMenu: TooltipMenuInterface;
+  public fields: ResourceFieldInterface[];
+  public prices: UpgradeFieldPriceInterface;
+  public tooltipMenu: TooltipMenuInterface;
 
-  prices: UpgradeFieldPriceInterface;
-  pricesSubscription: Subscription;
-
-  fields?: ResourceFieldInterface[] = [];
-  fieldsSubscription: Subscription;
+  private pricesSubscription: Subscription;
+  private fieldsSubscription: Subscription;
 
   constructor(private store: Store<AppStateInterface>) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.initializeSubscriptions();
+  }
+
+  public ngOnDestroy(): void {
+    this.fieldsSubscription.unsubscribe();
+    this.pricesSubscription.unsubscribe();
+  }
+
+  public initializeSubscriptions(): void {
     this.pricesSubscription = this.store.pipe(select(priceResourcesSelector)).subscribe((prices) => {
       if (prices) {
-        console.log(prices);
         this.prices = prices;
       }
     });
 
     this.fieldsSubscription = this.store.pipe(select(resourcesFieldsSelector)).subscribe((fields) => {
-      this.fields = fields;
+      if (fields) {
+        this.fields = fields;
+      }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.fieldsSubscription.unsubscribe();
-    this.pricesSubscription.unsubscribe();
   }
 
   public mouseEnter(trigger: MatMenuTrigger): void {
