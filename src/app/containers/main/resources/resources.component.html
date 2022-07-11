@@ -11,6 +11,7 @@
         class="building-{{i}}"
         [attr.d]="field.d"
         [matMenuTriggerFor]="menu"
+        (click)="openDialog(field)"
         (mouseenter)="mouseEnter(menuTrigger); addTooltipData(field)"
         (mouseleave)="mouseLeave(menuTrigger)">
       </path>
@@ -44,4 +45,3 @@
     </div>
   </div>
 </mat-menu>
-

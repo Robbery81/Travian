@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 
+import { MatDialog } from '@angular/material/dialog';
+
 import { Subscription } from 'rxjs';
 
 import { select, Store } from '@ngrx/store';
@@ -8,6 +10,8 @@ import { select, Store } from '@ngrx/store';
 import { AppStateInterface } from 'src/app/store/states/app.state';
 import { priceResourcesSelector } from 'src/app/store/selectors/prices.selector';
 import { resourcesFieldsSelector } from 'src/app/store/selectors/village.selector';
+
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 
 import { ResourceFieldTypeEnum } from 'src/app/shared/enums/resource-field-type.enum';
 
@@ -29,7 +33,7 @@ export class ResourcesComponent implements OnInit {
   private pricesSubscription: Subscription;
   private fieldsSubscription: Subscription;
 
-  constructor(private store: Store<AppStateInterface>) {}
+  constructor(private store: Store<AppStateInterface>, public dialog: MatDialog) {}
 
   public ngOnInit(): void {
     this.initializeSubscriptions();
@@ -68,6 +72,17 @@ export class ResourcesComponent implements OnInit {
       level: field.level,
       price: this.setPrice(field.type, field.level + 1)
     };
+  }
+
+  openDialog(field: ResourceFieldInterface) {
+    console.log(field);
+    console.log(this.tooltipMenu);
+    this.dialog.open(DialogComponent, {
+      data: {
+        animal: 'panda'
+      },
+      panelClass: 'my-custom-dialog-class'
+    });
   }
 
   private setPrice(field: ResourceFieldTypeEnum, level: number): PriceInterface | undefined {

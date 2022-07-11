@@ -1,0 +1,50 @@
+<div class="dialog">
+  <div class="header">
+    <div class="header-text">Crop <span>Level 0</span></div>
+    <div class="header-buttons">
+      <app-dialog-button [path]="'/assets/info_small.png'"></app-dialog-button>
+      <app-dialog-button [path]="'/assets/close.svg'"></app-dialog-button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="top">
+      <div class="top__content">
+        <div>Current production:</div>
+        <div><b>7</b> per hour</div>
+      </div>
+      <div class="top__content">
+        <div>Production at level 2:</div>
+        <div><b>13</b> per hour</div>
+      </div>
+      <div class="top__content-image"></div>
+    </div>
+    <div class="middle">Description</div>
+    <div class="bottom">
+      <div class="price">
+        <div class="price-image lumber"></div><div class="price-value">100</div>
+        <div class="price-image clay"></div><div class="price-value">100</div>
+        <div class="price-image iron"></div><div class="price-value">100</div>
+        <div class="price-image crop"></div><div class="price-value">100</div>
+        <div class="price-image free-crop"></div><div class="price-value">2</div>
+      </div>
+      <div class="price">
+        <div class="price-image culture"></div><div class="price-value"><b>0</b> <span> (+1)</span></div>
+        <div class="price-image population"></div><div class="price-value"><b>0</b> <span> (+1)</span></div>
+      </div>
+      <div class="donuts">
+        <div class="donuts-item">
+          <app-main-button [text]="'Construct with master builder'" ></app-main-button>
+          <div class="donuts-item__content">
+            <div class="donuts-image clock"></div><div>0:04:00</div>
+          </div>
+        </div>
+        <div class="donuts-item">
+          <app-main-button [text]="'Travian plus'" ></app-main-button>
+          <div class="donuts-item__content">
+            <div>Travian Plus allows you to queue one further construction order.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

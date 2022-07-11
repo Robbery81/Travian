@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { DialogModule } from 'src/app/shared/components/dialog/dialog.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MainRoutingModule } from 'src/app/containers/main/main-page.routing';
 
@@ -25,6 +26,6 @@ import { NavigationComponent } from './navigation/navigation.component';
     ResourcesComponent,
     NavigationComponent
   ],
-  imports: [CommonModule, RouterModule, MainRoutingModule, MatTooltipModule, MatMenuModule, SharedModule]
+  imports: [CommonModule, RouterModule, MainRoutingModule, MatTooltipModule, MatMenuModule, DialogModule, SharedModule]
 })
 export class MainModule {}

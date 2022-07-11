@@ -1,0 +1,19 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #333;
+  background-image: linear-gradient(to bottom,#fdf5cb,#f8eeb0 40%,#f0dc7c 45%,#e6ce64 85%,#caac50);
+  background-color: #f8eeb0;
+  border: 1px solid #82631d;
+  box-shadow: inset 0 0 1px 1px rgb(82 67 32 / 50%), inset 0 2px 2px 1px #faf8ec, inset 0 -2px 2px 0 #a08939;
+
+  height: 15px;
+  padding: 4px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+  border-radius: 5px;
+  white-space: nowrap;
+}
