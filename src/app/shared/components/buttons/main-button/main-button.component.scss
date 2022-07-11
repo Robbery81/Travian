@@ -3,12 +3,6 @@
   align-items: center;
   justify-content: center;
 
-  color: #333;
-  background-image: linear-gradient(to bottom,#fdf5cb,#f8eeb0 40%,#f0dc7c 45%,#e6ce64 85%,#caac50);
-  background-color: #f8eeb0;
-  border: 1px solid #82631d;
-  box-shadow: inset 0 0 1px 1px rgb(82 67 32 / 50%), inset 0 2px 2px 1px #faf8ec, inset 0 -2px 2px 0 #a08939;
-
   height: 15px;
   padding: 4px 20px;
   font-size: 11px;
@@ -16,4 +10,22 @@
   text-align: left;
   border-radius: 5px;
   white-space: nowrap;
+  cursor: pointer;
+
+  &-green {
+    color: #f2f2f2;
+    background-image: linear-gradient(to bottom,#7cb029,#587c1e);
+    background-color: #7cb029;
+    border: 1px solid #283308;
+    box-shadow: inset 2px 0 1px -1px #4b6f19, inset -2px 0 1px -1px #4b6f19, inset 0 3px 1px -1px #b5e251, inset 0 -3px 1px -1px rgb(44 75 12 / 60%);
+    text-shadow: 1px 1px 1px rgb(0 0 0 / 50%);
+  }
+
+  &-gold {
+    color: #333;
+    background-image: linear-gradient(to bottom,#fdf5cb,#f8eeb0 40%,#f0dc7c 45%,#e6ce64 85%,#caac50);
+    background-color: #f8eeb0;
+    border: 1px solid #82631d;
+    box-shadow: inset 0 0 1px 1px rgb(82 67 32 / 50%), inset 0 2px 2px 1px #faf8ec, inset 0 -2px 2px 0 #a08939;
+  }
 }

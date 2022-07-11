@@ -1,47 +1,55 @@
 <div class="dialog">
   <div class="header">
-    <div class="header-text">Crop <span>Level 0</span></div>
-    <div class="header-buttons">
+    <div class="header-text">{{data.type | resourceNamePipe}} <span>Level {{data.level}}</span></div>
+    <mat-dialog-actions class="header-buttons">
       <app-dialog-button [path]="'/assets/info_small.png'"></app-dialog-button>
-      <app-dialog-button [path]="'/assets/close.svg'"></app-dialog-button>
-    </div>
+      <app-dialog-button [path]="'/assets/close.svg'" mat-dialog-close=""></app-dialog-button>
+    </mat-dialog-actions>
   </div>
   <div class="container">
     <div class="top">
       <div class="top__content">
         <div>Current production:</div>
-        <div><b>7</b> per hour</div>
+        <div><b>{{data.productionCurrent}}</b> per hour</div>
       </div>
       <div class="top__content">
-        <div>Production at level 2:</div>
-        <div><b>13</b> per hour</div>
+        <div>Production at level {{data.level + 1}}:</div>
+        <div><b>{{data.productionNext}}</b> per hour</div>
       </div>
-      <div class="top__content-image"></div>
+      <div class="top__content-image" [style.background-image]="'url(\'/assets/dialog/resources/' + data.type + '.png\''"></div>
     </div>
     <div class="middle">Description</div>
     <div class="bottom">
-      <div class="price">
-        <div class="price-image lumber"></div><div class="price-value">100</div>
-        <div class="price-image clay"></div><div class="price-value">100</div>
-        <div class="price-image iron"></div><div class="price-value">100</div>
-        <div class="price-image crop"></div><div class="price-value">100</div>
-        <div class="price-image free-crop"></div><div class="price-value">2</div>
+      <div class="price" *ngIf="data.price as price">
+        <div class="price-image lumber"></div><div class="price-value">{{price.lumber}}</div>
+        <div class="price-image clay"></div><div class="price-value">{{price.clay}}</div>
+        <div class="price-image iron"></div><div class="price-value">{{price.iron}}</div>
+        <div class="price-image crop"></div><div class="price-value">{{price.crop}}</div>
+        <div class="price-image free-crop"></div><div class="price-value">{{price.cropFree}}</div>
       </div>
       <div class="price">
         <div class="price-image culture"></div><div class="price-value"><b>0</b> <span> (+1)</span></div>
         <div class="price-image population"></div><div class="price-value"><b>0</b> <span> (+1)</span></div>
       </div>
-      <div class="donuts">
+      <!--<div class="donuts">
         <div class="donuts-item">
-          <app-main-button [text]="'Construct with master builder'" ></app-main-button>
+          <app-main-button [text]="'Construct with master builder'" [class]="'button-gold'" ></app-main-button>
           <div class="donuts-item__content">
             <div class="donuts-image clock"></div><div>0:04:00</div>
           </div>
         </div>
         <div class="donuts-item">
-          <app-main-button [text]="'Travian plus'" ></app-main-button>
+          <app-main-button [text]="'Travian plus'" [class]="'button-gold'"></app-main-button>
           <div class="donuts-item__content">
             <div>Travian Plus allows you to queue one further construction order.</div>
+          </div>
+        </div>
+      </div>-->
+      <div class="donuts">
+        <div class="donuts-item">
+          <app-main-button [mat-dialog-close]="'Build'" [text]="'Upgrade to level ' + (data.level + 1)" [class]="'button-green'"></app-main-button>
+          <div class="donuts-item__content">
+            <div class="donuts-image clock"></div><div>0:04:00</div>
           </div>
         </div>
       </div>

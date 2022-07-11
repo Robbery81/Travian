@@ -7,7 +7,7 @@
     <svg viewBox="0 0 473 304">
       <path
         #menuTrigger="matMenuTrigger"
-        *ngFor="let field of fields; let i = index"
+        *ngFor="let field of fields | slice:1; let i = index"
         class="building-{{i}}"
         [attr.d]="field.d"
         [matMenuTriggerFor]="menu"
@@ -15,7 +15,9 @@
         (mouseenter)="mouseEnter(menuTrigger); addTooltipData(field)"
         (mouseleave)="mouseLeave(menuTrigger)">
       </path>
+      <path [attr.d]="fields[0].d"></path>
     </svg>
+    <app-building-list></app-building-list>
   </div>
 </div>
 

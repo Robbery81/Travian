@@ -6,6 +6,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DialogModule } from 'src/app/shared/components/dialog/dialog.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ButtonsModule } from 'src/app/shared/components/buttons/buttons.module';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MainRoutingModule } from 'src/app/containers/main/main-page.routing';
 
 import { MainComponent } from 'src/app/containers/main/main.component';
@@ -15,6 +17,7 @@ import { StockBarComponent } from './stock-bar/stock-bar.component';
 import { CurrencyComponent } from './currency/currency.component';
 import { ResourcesComponent } from 'src/app/containers/main/resources/resources.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { BuildingListComponent } from './building-list/building-list.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +27,19 @@ import { NavigationComponent } from './navigation/navigation.component';
     StockBarComponent,
     CurrencyComponent,
     ResourcesComponent,
-    NavigationComponent
+    NavigationComponent,
+    BuildingListComponent
   ],
-  imports: [CommonModule, RouterModule, MainRoutingModule, MatTooltipModule, MatMenuModule, DialogModule, SharedModule]
+  imports: [
+    CommonModule,
+    RouterModule,
+    MainRoutingModule,
+    MatTooltipModule,
+    MatMenuModule,
+    DialogModule,
+    SharedModule,
+    ButtonsModule,
+    MatDialogModule
+  ]
 })
 export class MainModule {}

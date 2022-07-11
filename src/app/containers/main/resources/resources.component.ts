@@ -11,14 +11,17 @@ import { AppStateInterface } from 'src/app/store/states/app.state';
 import { priceResourcesSelector } from 'src/app/store/selectors/prices.selector';
 import { resourcesFieldsSelector } from 'src/app/store/selectors/village.selector';
 
-import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
+import { DialogComponent, DialogConfig } from 'src/app/shared/components/dialog/dialog.component';
 
 import { ResourceFieldTypeEnum } from 'src/app/shared/enums/resource-field-type.enum';
 
 import { PriceInterface } from 'src/app/shared/interfaces/price.interface';
 import { TooltipMenuInterface } from 'src/app/shared/interfaces/tooltip-menu.interface';
 import { ResourceFieldInterface } from 'src/app/shared/interfaces/resource-field.interface';
-import { UpgradeFieldPriceInterface } from 'src/app/shared/interfaces/upgrade-field-price.interface';
+import {
+  UpgradeFieldPriceInterface,
+  UpgradePriceInterface
+} from 'src/app/shared/interfaces/upgrade-field-price.interface';
 
 @Component({
   selector: 'app-resources',
@@ -29,6 +32,11 @@ export class ResourcesComponent implements OnInit {
   public fields: ResourceFieldInterface[];
   public prices: UpgradeFieldPriceInterface;
   public tooltipMenu: TooltipMenuInterface;
+
+  private production = {
+    next: 0,
+    current: 0
+  };
 
   private pricesSubscription: Subscription;
   private fieldsSubscription: Subscription;
@@ -75,17 +83,37 @@ export class ResourcesComponent implements OnInit {
   }
 
   openDialog(field: ResourceFieldInterface) {
-    console.log(field);
-    console.log(this.tooltipMenu);
-    this.dialog.open(DialogComponent, {
-      data: {
-        animal: 'panda'
-      },
+    const data: DialogConfig = {
+      type: field.type,
+      level: this.tooltipMenu.level,
+      price: this.tooltipMenu.price,
+      productionCurrent: this.production.current,
+      productionNext: this.production.next
+    };
+
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data,
       panelClass: 'my-custom-dialog-class'
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
+  private setProduction(currentElement?: UpgradePriceInterface, nextElement?: UpgradePriceInterface) {
+    this.production = {
+      current: currentElement ? currentElement.production : 0,
+      next: nextElement ? nextElement.production : 0
+    };
+  }
+
   private setPrice(field: ResourceFieldTypeEnum, level: number): PriceInterface | undefined {
-    return this.prices[field]?.find((item) => item.level === level)?.price;
+    const currentElement = this.prices[field]?.find((item) => item.level - 1 === level);
+    const nextElement = this.prices[field]?.find((item) => item.level === level);
+
+    this.setProduction(currentElement, nextElement);
+
+    return nextElement?.price;
   }
 }

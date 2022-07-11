@@ -19,7 +19,7 @@
       display: flex;
       justify-content: space-around;
       position: absolute;
-      top: 25px;
+      top: 10px;
       right: 50px;
 
       &:first-child {
@@ -39,6 +39,8 @@
   }
 
   .container {
+    position: relative;
+    z-index: 2;
     box-sizing: border-box;
     padding: 0 20px;
 
@@ -68,10 +70,9 @@
         &-image {
           position: absolute;
           top: 0;
-          left: 310px;
+          left: 320px;
           width: 250px;
           height: 160px;
-          background-image: url('/assets/dialog/resources/g3.png');
         }
       }
     }
@@ -108,10 +109,14 @@
         }
 
         .crop {
+          width: 26px;
+          height: 24px;
           background-image: url('/assets/resources/crop_medium.png');
         }
 
         .free-crop {
+          width: 26px;
+          height: 24px;
           background-image: url('/assets/resources/freeCrop_medium.png');
         }
 
@@ -167,8 +172,8 @@
             }
           }
 
-          &:first-child {
-            border-right: dotted 1px silver;
+          &:nth-child(2n) {
+            border-left: dotted 1px silver;
           }
         }
       }
@@ -204,6 +209,7 @@
 
 ::ng-deep .my-custom-dialog-class {
   mat-dialog-container {
+    border-radius: 10px;
     padding: 0;
     margin: 0;
   }
