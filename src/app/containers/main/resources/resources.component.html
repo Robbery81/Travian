@@ -17,7 +17,7 @@
       </path>
       <path [attr.d]="fields[0].d"></path>
     </svg>
-    <app-building-list></app-building-list>
+    <app-building-list *ngIf="isBuilding"></app-building-list>
   </div>
 </div>
 

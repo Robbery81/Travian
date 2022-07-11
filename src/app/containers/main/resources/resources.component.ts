@@ -32,6 +32,7 @@ export class ResourcesComponent implements OnInit {
   public fields: ResourceFieldInterface[];
   public prices: UpgradeFieldPriceInterface;
   public tooltipMenu: TooltipMenuInterface;
+  public isBuilding: boolean;
 
   private production = {
     next: 0,
@@ -97,7 +98,7 @@ export class ResourcesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+      this.isBuilding = result;
     });
   }
 
