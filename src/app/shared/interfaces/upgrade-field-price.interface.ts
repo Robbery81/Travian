@@ -1,10 +1,11 @@
 import { PriceInterface } from 'src/app/shared/interfaces/price.interface';
-import { TimeForBuildInterface } from 'src/app/shared/interfaces/time-for-build.interface';
 
 export interface UpgradePriceInterface {
   level: number;
-  timesForBuild: TimeForBuildInterface;
+  timesForBuild: number;
   production: number;
+  culture: number;
+  population: number;
   price: PriceInterface;
 }
 

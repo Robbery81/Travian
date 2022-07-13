@@ -12,8 +12,13 @@ export class StockBarComponent implements OnInit {
 
   constructor() {}
 
-  getPercent(current: number, capacity: number): number {
-    return (current / capacity) * 100;
+  getBarStyles(current: number, capacity: number): any {
+    const percent = (current / capacity) * 100;
+
+    return {
+      'width.%': percent >= 100 ? 101 : percent,
+      backgroundColor: percent >= 100 ? '#b73a38' : '#699e32'
+    };
   }
 
   ngOnInit(): void {}

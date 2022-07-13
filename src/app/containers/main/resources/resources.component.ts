@@ -34,9 +34,13 @@ export class ResourcesComponent implements OnInit {
   public tooltipMenu: TooltipMenuInterface;
   public isBuilding: boolean;
 
-  private production = {
-    next: 0,
-    current: 0
+  private upgradeData = {
+    production: {
+      next: 0,
+      current: 0
+    },
+    population: 0,
+    culture: 0
   };
 
   private pricesSubscription: Subscription;
@@ -79,7 +83,7 @@ export class ResourcesComponent implements OnInit {
     this.tooltipMenu = {
       name: field.type,
       level: field.level,
-      price: this.setPrice(field.type, field.level + 1)
+      price: this.setPrice(field.type, field.level)
     };
   }
 
@@ -88,8 +92,10 @@ export class ResourcesComponent implements OnInit {
       type: field.type,
       level: this.tooltipMenu.level,
       price: this.tooltipMenu.price,
-      productionCurrent: this.production.current,
-      productionNext: this.production.next
+      productionCurrent: this.upgradeData.production.current,
+      productionNext: this.upgradeData.production.next,
+      addPopulation: this.upgradeData.population,
+      addCulture: this.upgradeData.culture
     };
 
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -102,18 +108,22 @@ export class ResourcesComponent implements OnInit {
     });
   }
 
-  private setProduction(currentElement?: UpgradePriceInterface, nextElement?: UpgradePriceInterface) {
-    this.production = {
-      current: currentElement ? currentElement.production : 0,
-      next: nextElement ? nextElement.production : 0
+  private setUpgradeInfo(currentElement?: UpgradePriceInterface, nextElement?: UpgradePriceInterface) {
+    this.upgradeData = {
+      production: {
+        current: currentElement ? currentElement.production : 0,
+        next: nextElement ? nextElement.production : 0
+      },
+      population: nextElement ? nextElement.population : 0,
+      culture: nextElement ? nextElement.culture : 0
     };
   }
 
   private setPrice(field: ResourceFieldTypeEnum, level: number): PriceInterface | undefined {
-    const currentElement = this.prices[field]?.find((item) => item.level - 1 === level);
-    const nextElement = this.prices[field]?.find((item) => item.level === level);
+    const currentElement = this.prices[field]?.find((item) => item.level === level);
+    const nextElement = this.prices[field]?.find((item) => item.level === level + 1);
 
-    this.setProduction(currentElement, nextElement);
+    this.setUpgradeInfo(currentElement, nextElement);
 
     return nextElement?.price;
   }

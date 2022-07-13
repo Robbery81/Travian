@@ -11,6 +11,8 @@ export interface DialogConfig {
   level: number;
   productionCurrent: number;
   productionNext: number;
+  addPopulation: number;
+  addCulture: number;
   price?: PriceInterface;
 }
 
