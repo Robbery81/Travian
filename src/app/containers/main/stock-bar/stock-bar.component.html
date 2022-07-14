@@ -7,7 +7,7 @@
     <div class="warehouse-item resource">
       <img src="assets/resources/lumber_small.png" alt="lumber_small">
       <div class="resource-value">
-        <span>{{resourcesProps.warehouse.values.lumber | number:'1.0-0'}}</span>
+        <span>{{resourcesProps.warehouse.values.lumber + resources.lumber | capacityPipe:resourcesProps.warehouse.capacity | number:'1.0-0'}}</span>
         <div class="bar-box">
           <div class="bar" [ngStyle]="getBarStyles(resourcesProps.warehouse.values.lumber, resourcesProps.warehouse.capacity)"></div>
         </div>
@@ -16,7 +16,7 @@
     <div class="warehouse-item resource">
       <img src="assets/resources/clay_small.png" alt="clay_small">
       <div class="resource-value">
-        <span>{{resourcesProps.warehouse.values.clay | number:'1.0-0'}}</span>
+        <span>{{resourcesProps.warehouse.values.clay + resources.clay | capacityPipe:resourcesProps.warehouse.capacity | number:'1.0-0'}}</span>
         <div class="bar-box">
           <div class="bar" [ngStyle]="getBarStyles(resourcesProps.warehouse.values.lumber, resourcesProps.warehouse.capacity)"></div>
 
@@ -26,7 +26,7 @@
     <div class="warehouse-item resource">
       <img src="assets/resources/iron_small.png" alt="iron_small">
       <div class="resource-value">
-        <span>{{resourcesProps.warehouse.values.iron | number:'1.0-0'}}</span>
+        <span>{{resourcesProps.warehouse.values.iron + resources.iron | capacityPipe:resourcesProps.warehouse.capacity | number:'1.0-0'}}</span>
         <div class="bar-box">
           <div class="bar" [ngStyle]="getBarStyles(resourcesProps.warehouse.values.lumber, resourcesProps.warehouse.capacity)"></div>
         </div>
@@ -35,20 +35,20 @@
   </div>
 
   <div class="granary">
-    <div class="warehouse-item capacity">
+    <div class="granary-item capacity">
       <img src="assets/resources/granary_medium.png" alt="">
       <div class="capacity-value"><span>{{resourcesProps.granary.capacity}}</span></div>
     </div>
-    <div class="warehouse-item resource">
+    <div class="granary-item resource">
       <img src="assets/resources/crop_medium.png" alt="lumber_small">
       <div class="resource-value">
-        <span>{{resourcesProps.granary.values.crop | number:'1.0-0'}}</span>
+        <span>{{resourcesProps.granary.values.crop + resources.crop | capacityPipe:resourcesProps.granary.capacity | number:'1.0-0'}}</span>
         <div class="bar-box">
-          <div class="bar" [ngStyle]="getBarStyles(resourcesProps.warehouse.values.lumber, resourcesProps.warehouse.capacity)"></div>
+          <div class="bar" [ngStyle]="getBarStyles(resourcesProps.granary.values.crop, resourcesProps.granary.capacity)"></div>
         </div>
       </div>
     </div>
-    <div class="warehouse-item resource">
+    <div class="granary-item resource">
       <img src="assets/resources/freeCrop_medium.png" alt="lumber_small">
       <div class="resource-value free-crop">
         <span>N</span>

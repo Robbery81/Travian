@@ -11,6 +11,8 @@
   <div class="wrapper">
     <app-navigation></app-navigation>
     <app-currency></app-currency>
-    <app-stock-bar [resources]="(currentVillage$ | async)?.resources"></app-stock-bar>
+    <app-stock-bar
+      [resources]="(currentVillage$ | async)?.resources"
+      [production]="(currentVillage$ | async)?.production"></app-stock-bar>
   </div>
 </div>

@@ -108,14 +108,22 @@ svg {
     margin: 1px;
     box-shadow: inset 0 0 2px 0 #fff;
 
-    border: 1px solid #988b42;
-    background-image: linear-gradient(to top,#988b42,#fdf15f 100%);
+    border: 1px solid #506d00;
+    background-image: linear-gradient(to top,#7da100,#c7e94f 100%);
+
+    &-cant-build {
+      border: 1px solid #988b42;
+      background-image: linear-gradient(to top,#988b42,#fdf15f 100%);
+    }
+
+    &-no-resources {
+      border: 1px solid #988b42;
+      background-image: linear-gradient(to top,#988b42,#fdf15f 100%); /*потрібно подивитись який колір треба*/
+    }
 
     &-1 {
       top: 13px;
       left: 171px;
-      border: 1px solid #506d00;
-      background-image: linear-gradient(to top,#7da100,#c7e94f 100%); /*можна будувати чи ні, різні кольори*/
     }
 
     &-2 {
