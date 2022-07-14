@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { TimerModule } from 'src/app/shared/components/timer/timer.module';
 import { DialogModule } from 'src/app/shared/components/dialog/dialog.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ButtonsModule } from 'src/app/shared/components/buttons/buttons.module';
@@ -39,7 +40,8 @@ import { BuildingListComponent } from './building-list/building-list.component';
     DialogModule,
     SharedModule,
     ButtonsModule,
-    MatDialogModule
+    MatDialogModule,
+    TimerModule
   ]
 })
 export class MainModule {}

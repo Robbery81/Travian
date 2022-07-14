@@ -1,4 +1,4 @@
-<div class="build-list">
+<div *ngIf="infoProps" class="build-list">
   <div class="build-item">
     <h5>Building:</h5>
     <app-main-button
@@ -10,11 +10,12 @@
     <div class="build-item">
       <div class="build-cancel"></div>
       <div>
-        Cropland <span>Level 2</span>
+        {{infoProps.field | resourceNamePipe}} <span>Level {{infoProps.level}}</span>
       </div>
     </div>
     <div>
-      <span>0:03:43</span> hrs. done at 15:26
+      <app-timer [endDate]="infoProps.endDate" (timerExpired)="buildingResolve.emit()"></app-timer>
+      hrs. done at {{infoProps.endDate | date:'H:mm:ss'}}
     </div>
   </div>
 </div>

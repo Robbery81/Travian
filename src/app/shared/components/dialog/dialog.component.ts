@@ -8,11 +8,13 @@ import { PriceInterface } from 'src/app/shared/interfaces/price.interface';
 
 export interface DialogConfig {
   type: ResourceFieldTypeEnum;
+  index: number;
   level: number;
-  productionCurrent: number;
-  productionNext: number;
-  addPopulation: number;
   addCulture: number;
+  addPopulation: number;
+  timesForBuild: number;
+  productionNext: number;
+  productionCurrent: number;
   price?: PriceInterface;
 }
 

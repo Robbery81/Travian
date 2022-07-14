@@ -17,7 +17,10 @@
       </path>
       <path [attr.d]="fields[0].d"></path>
     </svg>
-    <app-building-list *ngIf="isBuilding"></app-building-list>
+    <app-building-list
+      *ngIf="build$ | async"
+      [info]="build$ | async"
+      (buildingResolve)="onBuildingResolve()"></app-building-list>
   </div>
 </div>
 

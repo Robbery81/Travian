@@ -3,20 +3,29 @@ import { MatMenuTrigger } from '@angular/material/menu';
 
 import { MatDialog } from '@angular/material/dialog';
 
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { select, Store } from '@ngrx/store';
 
-import { AppStateInterface } from 'src/app/store/states/app.state';
 import { priceResourcesSelector } from 'src/app/store/selectors/prices.selector';
-import { resourcesFieldsSelector } from 'src/app/store/selectors/village.selector';
+import { currentVillageSelector, resourcesFieldsSelector } from 'src/app/store/selectors/village.selector';
+import { buildAction, buildFinishAction } from 'src/app/store/actions/build.action';
+import { dataBuildSelector } from 'src/app/store/selectors/build.selector';
+import { villageSuccessAction } from 'src/app/store/actions/village.action';
+
+import { changeObjectLink } from 'src/app/shared/functions/change-object-link';
 
 import { DialogComponent, DialogConfig } from 'src/app/shared/components/dialog/dialog.component';
+
+import { BuildingDto } from 'src/app/shared/interfaces/building.dto';
 
 import { ResourceFieldTypeEnum } from 'src/app/shared/enums/resource-field-type.enum';
 
 import { PriceInterface } from 'src/app/shared/interfaces/price.interface';
+import { VillageInterface } from 'src/app/shared/interfaces/village.interface';
+import { AppStateInterface } from 'src/app/store/states/app.state';
 import { TooltipMenuInterface } from 'src/app/shared/interfaces/tooltip-menu.interface';
+import { UpdateFieldInterface } from 'src/app/shared/interfaces/update-field.interface';
 import { ResourceFieldInterface } from 'src/app/shared/interfaces/resource-field.interface';
 import {
   UpgradeFieldPriceInterface,
@@ -32,9 +41,14 @@ export class ResourcesComponent implements OnInit {
   public fields: ResourceFieldInterface[];
   public prices: UpgradeFieldPriceInterface;
   public tooltipMenu: TooltipMenuInterface;
-  public isBuilding: boolean;
+  public currentVillage: VillageInterface;
+
+  public build$: Observable<BuildingDto>;
+
+  private dialogConfigData: DialogConfig;
 
   private upgradeData = {
+    timesForBuild: 0,
     production: {
       next: 0,
       current: 0
@@ -45,6 +59,7 @@ export class ResourcesComponent implements OnInit {
 
   private pricesSubscription: Subscription;
   private fieldsSubscription: Subscription;
+  private currentVillageSubscription: Subscription;
 
   constructor(private store: Store<AppStateInterface>, public dialog: MatDialog) {}
 
@@ -58,6 +73,8 @@ export class ResourcesComponent implements OnInit {
   }
 
   public initializeSubscriptions(): void {
+    this.build$ = this.store.pipe(select(dataBuildSelector));
+
     this.pricesSubscription = this.store.pipe(select(priceResourcesSelector)).subscribe((prices) => {
       if (prices) {
         this.prices = prices;
@@ -67,6 +84,12 @@ export class ResourcesComponent implements OnInit {
     this.fieldsSubscription = this.store.pipe(select(resourcesFieldsSelector)).subscribe((fields) => {
       if (fields) {
         this.fields = fields;
+      }
+    });
+
+    this.currentVillageSubscription = this.store.pipe(select(currentVillageSelector)).subscribe((item) => {
+      if (item) {
+        this.currentVillage = item;
       }
     });
   }
@@ -79,7 +102,7 @@ export class ResourcesComponent implements OnInit {
     trigger.closeMenu();
   }
 
-  public addTooltipData(field: any): void {
+  public addTooltipData(field: ResourceFieldInterface): void {
     this.tooltipMenu = {
       name: field.type,
       level: field.level,
@@ -87,29 +110,64 @@ export class ResourcesComponent implements OnInit {
     };
   }
 
-  openDialog(field: ResourceFieldInterface) {
-    const data: DialogConfig = {
+  public openDialog(field: ResourceFieldInterface) {
+    this.dialogConfigData = {
+      index: field.index,
       type: field.type,
       level: this.tooltipMenu.level,
       price: this.tooltipMenu.price,
-      productionCurrent: this.upgradeData.production.current,
-      productionNext: this.upgradeData.production.next,
+      addCulture: this.upgradeData.culture,
+      timesForBuild: this.upgradeData.timesForBuild,
       addPopulation: this.upgradeData.population,
-      addCulture: this.upgradeData.culture
+      productionNext: this.upgradeData.production.next,
+      productionCurrent: this.upgradeData.production.current
     };
 
     const dialogRef = this.dialog.open(DialogComponent, {
-      data,
+      data: this.dialogConfigData,
       panelClass: 'my-custom-dialog-class'
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      this.isBuilding = result;
-    });
+    dialogRef.afterClosed().subscribe((res: boolean) => this.closeDialog(res));
+  }
+
+  public closeDialog(isBuildStart: boolean) {
+    if (isBuildStart) {
+      const updateField: UpdateFieldInterface = {
+        villageName: this.currentVillage.name,
+        fieldIndex: this.dialogConfigData.index,
+        fieldType: this.dialogConfigData.type,
+        fieldLevel: this.dialogConfigData.level + 1
+      };
+
+      this.currentVillage = changeObjectLink(this.currentVillage);
+
+      const warehouse = this.currentVillage.resources.warehouse.values;
+      const granary = this.currentVillage.resources.granary.values;
+
+      if (this.dialogConfigData.price) {
+        warehouse.lumber = warehouse.lumber - this.dialogConfigData.price?.lumber;
+        warehouse.clay = warehouse.clay - this.dialogConfigData.price?.clay;
+        warehouse.iron = warehouse.iron - this.dialogConfigData.price?.iron;
+        granary.crop = granary.crop - this.dialogConfigData.price?.crop;
+      }
+
+      this.store.dispatch(villageSuccessAction({ currentVillage: this.currentVillage }));
+
+      this.store.dispatch(buildAction({ request: updateField }));
+    }
+  }
+
+  public onBuildingResolve() {
+    this.currentVillage = changeObjectLink(this.currentVillage);
+    this.currentVillage.resourceFields[this.dialogConfigData.index].level++;
+    this.store.dispatch(villageSuccessAction({ currentVillage: this.currentVillage }));
+    this.store.dispatch(buildFinishAction());
   }
 
   private setUpgradeInfo(currentElement?: UpgradePriceInterface, nextElement?: UpgradePriceInterface) {
     this.upgradeData = {
+      timesForBuild: nextElement ? nextElement.timesForBuild : 0,
       production: {
         current: currentElement ? currentElement.production : 0,
         next: nextElement ? nextElement.production : 0
